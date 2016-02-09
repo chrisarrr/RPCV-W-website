@@ -1,0 +1,192 @@
+
+// buttons
+
+@mixin button(){
+  cursor: pointer;
+  display: inline-block;
+  background-color: $theme-color-3;
+  @include border-radius(2px);
+  padding: 10px 15px;
+  border: 0;
+  font: 14px $font;
+  color: #fff;
+  min-height: 39px;
+  a {
+    color: #fff;
+  }
+  &:hover {
+      background-color: lighten($theme-color-1, 5);
+      color: #fff !important;
+    }
+}
+
+.button,
+.small_button {
+  @include button;
+}
+
+.small_button {
+  @include button;
+  padding: 2px 4px;
+  font: 12px $font;
+  min-height: 22px;
+}
+
+.right {
+  float:right;
+}
+
+.left {
+  float:left;
+}
+
+.tiny-button {
+  font-size: 12px;
+  padding: 2px 5px;
+  min-height: 100%;
+}
+
+.submit-button, .success-button {
+  @include button;
+  border: 0;
+}
+
+// red button, commonly used to cancel actions
+
+.destroy-link {
+  background-color: $red;
+  &:hover {
+      background-color: lighten($red, 5);
+    }
+}
+
+.submit-link {
+  cursor: pointer;
+  border: 0;
+  background-color: $theme-color-3;
+  @include border-radius(2px);
+  display: inline-block;
+  color: white;
+  font: 14px $font;
+  padding: 10px 15px;
+  &:hover {
+      text-decoration: none;
+      color: white;
+      background-color: lighten($theme-color-3, 5);
+    }
+}
+
+.neutral-link {
+  background-color: $theme-color-1;
+  &:hover {
+      background-color: lighten($theme-color-1, 5);
+    }
+}
+
+// button to close share box
+
+.share-close {
+  float: right;
+  margin: -15px -15px 10px 10px; 
+  padding: 5px;
+  min-height: auto;
+  font-size: 11px;
+  @include border-radius(0px);
+}
+
+// read more link
+
+.read-more, .read_more {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.share-container {
+  .small-button {
+    min-height: 24px;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
+
+//mentor buttons
+
+.mentorbuttons  {
+  background-color:$theme-color-1;
+  @include border-radius(2px);
+  text-indent:-15px;
+  color: #fff;
+  display:inline-block;
+  font: 2em $font;
+  padding:20px ;
+  width:46%;
+  text-decoration:none;
+  text-align:center;
+  text-align:middle;
+  margin: 10px;
+}
+.mentorbuttons:hover {
+  background-color:$theme-color-1 - 10;
+  color: #fff;
+}
+.mentorbuttons:active {
+  position:relative;
+  top:1px;
+  background-color:$theme-color-1 - 50;
+}
+
+.amazon {
+  @include border-radius(2px);
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 18px;
+  background: #fea501;
+  padding: 10px 20px 10px 20px;
+  border: solid #ff9900 1px;
+  text-decoration: none;
+  &:hover {
+      background: #ff9900;
+      text-decoration: none;
+      color: #ffffff;
+    }
+}
+
+a[class^="login-button"], a[class*=" login-button"] {
+  @include button;
+  font-weight: 300;
+  font-size: 12px;
+  text-transform: none;
+  text-align: center;
+  border: 0;
+  width: 100%;
+  margin: 0;
+  max-width: 250px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  &:last-of-type {
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+}
+
+a.login-button-facebook {
+  color: #fff;
+  background: $facebook-color;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($facebook-color,15);
+    }
+    
+}
+
+a.login-button-twitter {
+  color: #fff;
+  background: $twitter-color;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($twitter-color,15);
+    }
+    
+}

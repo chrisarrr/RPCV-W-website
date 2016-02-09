@@ -1,0 +1,84 @@
+<div class="left-column">
+  <h3><a href="/blog">Recent Blog Posts</a></h3>
+  <hr>
+  <div class ="row-fluid">
+    <div class = "span6">
+      {% for post in page.blog.most_recent_blog_posts limit:1 offset:0 %}    
+      <h5><a href="{{ post.url }}">{{ post.headline }}</a></h5> 
+      {% endfor %}
+    </div> 
+    
+    <div class = "span6">
+      {% for post in page.blog.most_recent_blog_posts limit:1 offset:1 %}    
+      <h5><a href="{{ post.url }}">{{ post.headline }}</a></h5> 
+      {% endfor %}
+    </div>
+  </div>
+  
+  <div class ="row-fluid desktop-visible">
+    <div class = "span6">
+      {% for post in page.blog.most_recent_blog_posts limit:1 offset:0 %}    
+      {% if post.has_meta_image? %}
+      <a href="{{ post.url }}"><img alt="{{ post.meta_image_url }}" src="{{ post.meta_image_url }}" class="img-crop"></a>
+      {% endif %}     
+      <div style = "float:right">
+        <div class="byline">By {{ post.author.published_name_linked }}<br>{{ post.published_at | date: '%B %d, %Y ' }}</div>  
+      </div>
+      {{ "Share" | share_button page_id: post.id }}    
+      {% endfor %}
+    </div>
+    
+    <div class = "span6">
+      {% for post in page.blog.most_recent_blog_posts limit:1 offset:1 %}
+      {% if post.has_meta_image? %}
+      <a href="{{ post.url }}"><img alt="{{ post.meta_image_url }}" src="{{ post.meta_image_url }}" class="img-crop"></a>
+      {% endif %}   
+      <div style = "float:right">
+        <div class="byline">By {{ post.author.published_name_linked }}<br>{{ post.published_at | date: '%B %d, %Y ' }}</div>  
+      </div>
+      {{ "Share" | share_button page_id: post.id }}
+      {% endfor %}
+    </div>    
+  </div>
+  
+  <div class ="row-fluid">
+    <div class = "span6">
+      {% for post in page.blog.most_recent_blog_posts limit:1 offset:2 %}    
+      <h5><a href="{{ post.url }}">{{ post.headline }}</a></h5> 
+      {% endfor %}
+    </div> 
+    
+    <div class = "span6">
+      {% for post in page.blog.most_recent_blog_posts limit:1 offset:3 %}    
+      <h5><a href="{{ post.url }}">{{ post.headline }}</a></h5> 
+      {% endfor %}
+    </div>
+  </div>
+  
+  <div class ="row-fluid desktop-visible">
+    <div class = "span6">
+      {% for post in page.blog.most_recent_blog_posts limit:1 offset:2 %}    
+      {% if post.has_meta_image? %}
+      <a href="{{ post.url }}"><img alt="{{ post.meta_image_url }}" src="{{ post.meta_image_url }}" class="img-crop"></a>
+      {% endif %}      
+      <div style = "float:right">
+        <div class="byline">By {{ post.author.published_name_linked }}<br>{{ post.published_at | date: '%B %d, %Y ' }}</div>  
+      </div>
+      {{ "Share" | share_button page_id: post.id }}      
+      {% endfor %}
+    </div>
+    
+    <div class = "span6">
+      {% for post in page.blog.most_recent_blog_posts limit:1 offset:3 %}
+      {% if post.has_meta_image? %}
+      <a href="{{ post.url }}"><img alt="{{ post.meta_image_url }}" src="{{ post.meta_image_url }}" class="img-crop"></a>
+      {% endif %} 
+      <div style = "float:right">
+        <div class="byline">By {{ post.author.published_name_linked }}<br>{{ post.published_at | date: '%B %d, %Y ' }}</div>  
+      </div>
+      {{ "Share" | share_button page_id: post.id }}    
+      {% endfor %}
+    </div>    
+  </div>
+  
+</div>

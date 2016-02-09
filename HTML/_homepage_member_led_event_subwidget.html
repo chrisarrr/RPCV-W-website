@@ -1,0 +1,16 @@
+
+<h3 class="headline"><a href="/member_led_events"></a>Member-Led Events</h3>
+
+<h4>{% if page.calendar.events_upcoming_count == 0 %}No Member-Led events listed, <a href="/member_led_events">click here to add one.</a>{% else %} There {% if page.calendar.events_upcoming_count > 1 %}are {{ page.calendar.events_upcoming_count }} Member-Led events coming up{% else %} is one Member-Led event coming up{% endif %}{% endif %}</h4>
+
+<hr>
+
+<p>We encourage our members to lead informal gatherings and share interesting events around town. For privacy purposes, only <a href="/login">logged-in</a> members may view event details and RSVP</p>
+
+<ul class="event-wrap row-fluid">
+  {% for event in page.calendar.events_upcoming %}
+  <li class="span6">{% include "tiny_event" %}</li>
+  {% endfor %}
+</ul>
+
+<p>{% if request.current_signup.is_member? %}<a href="/member_led_events">Add your own</a>{% elsif request.current_signup.tags contains "member" %} <a href="/join">Renew your membership</a> to post an event {% else %} <a href="/login">Log in</a> to your account to post an event{% endif %}</p>

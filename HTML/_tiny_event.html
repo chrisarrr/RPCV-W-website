@@ -1,0 +1,54 @@
+
+    {% if event.has_meta_image? %}
+    <a href="{{ event.url }}" title="Click here for more information"> 
+      <img alt="{{ event.meta_image_url }}" src="{{ event.meta_image_url }}" class="img-full" >
+    </a>
+    {% endif %}
+
+    <div class="center">
+      <div class="padbottommore">
+        <h3><a href="{{ event.url }}">{{ event.name }}</a></h3>
+      </div>
+      <h4>{{ event.event.local_start_at | date: '%A, %B %d - %I:%M %p' }}
+        {% if event.event.is_multi_day? %}
+        through {{ event.event.local_end_at | event_date }}
+        {% endif %}</h4>
+      {% if event.event.is_ticket_required? %}
+      <div class="padtop"></div>
+      <strong>Ticket required</strong>
+      {% elsif event.event.is_user_ticket_required? %}
+      <div class="padtop"></div>
+      <strong>Ticket required</strong>
+      {% endif %}
+      {% if event.event.has_venue? %}
+      <div class="padtop">
+        {% if event.event.has_venue_address? %}
+        <h5><a href="{{ event.event.venue_address.google_map_link }}">{{ event.event.venue_name }}</a></h5>
+        {% else %}
+        <h5>{{ event.event.venue_name }}</h5>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="img-padright padtop">
+      {% if event.event.content.size > 0 %}
+      {{ event.event.content | truncatechars: 50 }} {% if event.event.content.size > 50 %}<a href="{{ event.url }}">read more</a>{% endif %}
+      {% endif %}
+    </div>
+
+    {% if event.event.is_maximum_capacity? %}
+    <a class="button destroy-link" href="{{ event.url }}">full</a>
+    {% elsif event.event.is_past? == false and event.event.accept_rsvps? %}
+    <a class="submit-link" href="{{ event.url }}" onClick="ga('send', 'event', { eventCategory: 'button', eventAction: 'rsvp', eventLabel: '{{ event.url }}'});">rsvp</a>
+    {% include "addtocalendar" %}
+    {{ "Share" | share_button page_id: event.id }}
+    {% endif %}
+    {% if event.event.accept_rsvps? == false %}
+    {% include "addtocalendar" %}            
+    {% endif %}
+
+    {% if event.event.show_guests? and event.event.rsvps_count > 1 %}
+<div class="padtop">
+    <a href="{{ event.url }}#guests">{{ event.event.rsvps_count }} people are going</a>
+</div>
+    {% endif %}

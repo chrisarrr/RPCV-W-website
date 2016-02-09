@@ -1,0 +1,31 @@
+<div class="padtopmore padbottommore"></div>
+<div class="row-fluid">
+  <div class="span9">
+    <h3 class="headline">{{ page.headline }}</h3>
+    <h4>
+      <a href="{{ page.url }}">{% if page.calendar.events_upcoming_count == 0 %}No official events posted, check back soon!{% else %} We have {{ page.calendar.events_upcoming_count }} official event{% if page.calendar.events_upcoming_count > 1 %}s{% endif %} coming up{% endif %}</a>
+    </h4>
+  </div>
+  <div class="span3 pull-right">
+    <a href="https://www.google.com/calendar/render?cid=communityservice@rpcvw.org" class="small_button right">Sync w/ Google Calendar</a>
+  </div>
+</div>
+<hr>
+
+{% if page.calendar.events_upcoming_count > 0 %}
+{{ page.calendar.events_upcoming_map }}
+{% endif %}
+
+<h4 class="padtopmore padbottommore">
+  View <a href="/past_events" id="past_events">past events</a> or <a href="/contact">contact us</a> to send an event suggestion.
+</h4>
+
+<ul class="event-wrap">
+  {% for event in page.calendar.events_upcoming limit:3 offset:0 %}
+  <li>{% include "event" %}</li>
+  {% endfor %}
+</ul>
+
+<div class="padtopmore padbottommore"></div>
+
+{% subpage "member_led_events" with "homepage_member_led_event_subwidget" %}

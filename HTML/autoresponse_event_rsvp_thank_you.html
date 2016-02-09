@@ -1,0 +1,18 @@
+<div style="font-size: large;">Confirmation: {{ page.headline }}</div>
+<br />
+Thank you for your RSVP{% if event_rsvp.guests_count > 0 %} +{{ event_rsvp.guests_count }}{% endif %}. We look forward to seeing you!
+<br/><br/>
+{% include "mailing_event" %}
+<br/><br/>
+If you need to update or cancel your RSVP, use this link (only for unticketed events):
+<br/><br/>
+<a href="{{ edit_url }}">{{ edit_url }}</a>
+<br/><br/>
+And you can invite others to join with this link (you'll gain credit as a recruiter on our <a href="/leaderboard">Leaderboard</a>):
+<br/><br/>
+<a href="{{ page_url }}">{{ page_url }}</a>
+<br/><br/>
+If this is for a ticketed event, your name will be on our sign in list, as will the number of tickets you purchased for any guests. Thank you for staying active with RPCV/W, and please let us know if you have ideas for future events!
+<br/><br/>
+{{ broadcaster.name }}<br/>
+<a href="{{ site.full_url }}">{{ site.full_url }}</a><br/>

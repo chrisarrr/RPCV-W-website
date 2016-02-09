@@ -1,0 +1,343 @@
+<!DOCTYPE html >
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{{ page_title }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="theme.scss" type="text/css">
+    <link rel="stylesheet" href="tablet-and-desktop.scss" type="text/css" media="screen and (min-width: 768px)">
+    
+    <link rel="stylesheet" href="features_2.scss" type="text/css">    
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Open+Sans' rel='stylesheet' type='text/css'>    
+    
+    <!-- because ie8 ignores media queries, we need this -->
+    <!--[if IE 8]>
+<link rel="stylesheet" href="tablet-and-desktop.scss" type="text/css">
+<![endif]-->
+    
+    <!--[if IE]>
+<link rel="stylesheet" href="ie.scss" type="text/css">
+<![endif]-->
+    
+    <!-- Content for Header -->
+    
+    {{ content_for_header }}
+    
+    
+    <!-- Analytics -->
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || []; // leave for legacy compatibility
+      var engagement = {% if request.logged_in? %}"member"{% else %}"public"{% endif %};
+                                                                             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                                                                               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                                                                                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                                                                                                     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');    
+                                                                             ga('create', 'UA-27284180-1', 'auto');  
+                                                                             ga('send', 'pageview');                                                                             ga('require', 'displayfeatures');
+                                                                             ga('require', 'linkid', 'linkid.js');
+                                                                             ga('send', 'pageview', { "dimension1": engagement});
+                                                                             {% if request.logged_in? %}ga('set', 'userId', '{{ request.current_signup.id }}');{% endif %}
+                                                                             
+    </script> 
+    
+    <script type="text/javascript"> 
+      NB.appConfig.userIsLoggedIn = {{request.logged_in?}};
+    </script>
+    
+    <!--Twitter Card -->
+    
+    <meta name="twitter:widgets:csp" content="on">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@{{ site.broadcaster.twitter_login }}">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{{ page.excerpt | strip_html }}">
+    <meta name="twitter:image" content="{{ page.meta_image_url }}">
+    
+    <!--Linkedin Plugin-->
+    
+    <script type="IN/Share" data-url="{{site.url}}" data-onsuccess="myu_linkedin"></script>
+    <script type="text/javascript">
+      //Shares on LinkedIn
+      function myu_linkedin() {
+        ga('send', {
+          'hitType': 'social',
+          'socialNetwork': 'LinkedIn',
+          'socialAction': 'Share',
+          'socialTarget': '{{ page.url }}',
+          'page': '{{ page.name }}'
+        });
+      }
+    </script>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                               n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                               t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                                                                                                      document,'script','//connect.facebook.net/en_US/fbevents.js');
+      
+      fbq('init', '1709475412616101');
+      fbq('track', "PageView");</script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1709475412616101&ev=PageView&noscript=1"
+      /></noscript>
+    <!-- End Facebook Pixel Code -->
+    
+  </head>
+  <body class="aware-theme v2-theme {{ page.page_class_name }} js">
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : 126739610711965,
+          channelUrl : "//rpcvw.nationbuilder.com/channel.html",
+          status     : true,
+          version    : "v2.3",
+          cookie     : true,
+          xfbml      : true
+        });
+      };
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    
+    <!--facebook tracking -->
+    <script>
+      window.fbAsyncInit = function(){
+        FB.Event.subscribe('edge.create',function(targetURL) {
+          ga('send', 'social', 'Facebook', 'like', targetURL);  
+          
+        }
+                          );
+        
+        FB.Event.subscribe('edge.remove',function(URL) {
+          ga('send', 'social', 'Facebook', 'unlike', URL);  
+          
+        }
+                          );
+        
+        FB.Event.subscribe('message.send',function(location) {
+          ga('send', 'social', 'Facebook', 'send', location);  
+          
+        }
+                          );  
+        
+        FB.Event.subscribe('comment.create',function(href) {
+          ga('send', 'social', 'Facebook', 'comment added', href);  
+          
+        }
+                          );
+        
+        FB.Event.subscribe('comment.remove',function(loc) {
+          ga('send', 'social', 'Facebook', 'comment deleted', loc);  
+          
+        }
+                          );  
+        
+      };
+    </script>
+    <!--facebook tracking -->
+    
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-THNS3S"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                                                          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                                })(window,document,'script','dataLayer','GTM-THNS3S');</script>
+    <!-- End Google Tag Manager -->
+    
+    <div id="pattern" class="pattern">
+      <div class="wrap" id="wrap">       
+        <div id="body" class="page-{{ request.template | replace: '_', '-' }}">
+          
+          <div class="header-container clearfix">
+            {% if request.sorta_logged_in? == true %}
+            <div id="flash" class="infobar">
+              {% if request.current_signup.tags contains "member" and request.current_signup.has_password? == false  %}
+              <div class="notice notice clearfix"><button class="flash-close">×</button>
+                <div class="flash-message"><small><i class="fa fa-exclamation-circle fa-lg padright"></i> Hi {{ request.current_signup.name_or_email }}! We have membership info for you on file, but you haven't set a password. <a href="/login">Please take control of your account</a>.</small>  
+                </div>
+              </div>
+              {% elsif request.current_signup.has_password? == false %}
+              <div class="notice notice clearfix"><button class="flash-close">×</button>
+                <div class="flash-message"><small><i class="fa fa-exclamation-circle fa-lg padright"></i> You need to fully activate your account and set a password for future use. Please <a href="/join">select a membership</a> or <a href="/login">continue as a non-member</a>.</small>  
+                </div>
+              </div>
+              {% endif %}
+              {% if request.current_user.is_member? == false and request.current_user.tags contains "member" %}
+              <div class="notice error clearfix"><button class="flash-close">×</button>
+                <div class="flash-message"><small><i class="fa fa-exclamation-circle fa-lg padright"></i> Your membership has expired. You may be signed out when trying to access certain parts of the website. <b><a href="/join">Click here to renew</a>.</b></small>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+            
+            <div id ="begin" class="width-container clearfix scrollspy">
+              
+              {% include "nav" %}
+              
+              {% if site.has_meta_image? %}
+              <a class="site-logo" href="/">
+                <header>
+                  <!--[if !IE]>
+{% include "rpcvw_svg_logo" %}
+<![endif]-->
+                  <!--[if IE]> 
+<img title="Home" src="http://d3n8a8pro7vhmx.cloudfront.net/themes/5253646978c2720367000002/attachments/original/1437755366/rpcvw_web_logo.png?1437755366" border="0" alt="RPCVW-logo" >
+<!-- <[endif]-->
+                </header>
+              </a>
+              {% else %}
+              <header>
+                <h1 class="title"><a href="/">{{ site.long_name }}</a></h1>
+              </header>
+              {% endif %}
+              
+            </div>
+            <!-- .width-container -->
+          </div>
+          <!-- .header-container -->
+          
+          {% if page.features_count > 0 and is_homepage? == false %}
+          <div class="width-container">
+            {% include "features" %}
+          </div>
+          {% endif %}
+          <div class="main-container" id="middle">
+            <div class="main width-container clearfix">
+              {% if request.is_sidebar? %}
+              {% include "columns_2" %}
+              {% else %}
+              {% include "columns_1" %}
+              {% endif %}
+            </div>
+            <!-- .main -->
+          </div>
+          <!-- .main-container -->
+          <div class="width-container">
+            <footer class="clearfix">
+              
+              <!--Content for Footer -->
+              {{ content_for_footer }}
+              <!--Content for Footer -->
+              
+              
+              
+              {% if site.footer_content.size > 0 %}
+              <div class="footer-text"><small>
+                <p class="center">&copy; {{ settings.stats_updated_at | date: '%Y' }} {{ site.long_name }} All Rights Reserved.</p>
+                {% if settings.has_address? %}<p class="center">{{ settings.address.one_line }}</p>{% endif %}
+                {{ site.footer_content }}</small></div>
+              <hr/>
+              {% endif %}
+              <div class="row-fluid">
+                <div class="span7 footer-left">
+                  {% if request.logged_in? %}
+                  Hi <a href="{{ request.current_signup.settings_url }}">{{ request.current_signup.name_or_email }}</a>. View your
+                  {% if site.show_public_profiles? %}
+                  <a href="{{ request.current_signup.profile_url }}">public profile</a>,
+                  {% endif %}
+                  <a href="{{ request.current_signup.settings_url }}">account settings</a>, or
+                  <a href="{{ request.current_signup.logout_url }}">sign out</a>.
+                  {% else %}
+                  Sign in with <a href="{{ request.facebook_connect_url }}">Facebook</a>, <a
+                  href="{{ request.twitter_connect_url }}">Twitter</a> or <a href="/login">email</a>.
+                  {% endif %}
+                </div>
+                <div class="span5 footer-right">
+                  Powered by <a href="http://nationbuilder.com/">NationBuilder</a>
+                </div>
+              </div>
+              <script type="text/javascript">
+                $(function() {
+                  for(i in _gaq) { var c = _gaq[i]; if(c[0] == "_trackPageview"){ ga('send', 'pageview', c[1]) } }
+                });
+              </script> 
+            </footer>
+          </div>
+          <!-- .width-container -->
+        </div>
+        <!-- #body -->
+      </div>
+      <!-- #wrap -->
+    </div>
+    <!-- #pattern -->
+    {% comment if page.is_homepage? == true %} 
+    <style>
+      body {
+        background: url('{{ site.background_image_url }}') no-repeat center center fixed;
+        background-size: cover;
+      }
+    </style>
+    {% endcomment %}
+    <!--Materialize -->
+    <script type="text/javascript" src="widgets.js"></script>
+    <script type="text/javascript" src="materialize.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        
+        $('ul.tabs').tabs();
+        
+        $('.scrollspy').scrollSpy();
+        
+        $('.collapsible').collapsible({
+          accordion : true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        });
+      });
+    </script>
+    
+    <!--Facebook plugin -->
+    <script type="text/javascript">
+      function pollFBCommentBox(widget) {
+        var fbCommentBoxTimer = window.setInterval(function() {
+          if($(widget).height() < 100) {
+            $(widget).removeClass('comment-box-active');
+            window.clearInterval(fbCommentBoxTimer);
+          }
+        }, 1000);
+      }
+      FB.Event.subscribe('edge.create', function(href, widget) {
+        $(widget).addClass('comment-box-active');
+        pollFBCommentBox(widget);
+      });
+      FB.Event.subscribe('edge.remove', function(href, widget) {
+        $(widget).removeClass('comment-box-active');
+      });
+      FB.Event.subscribe('message.send', function(href, widget) {
+        $(widget).removeClass('comment-box-active');
+      });
+    </script>
+    
+    
+    <script>
+      $(document).ready(function(){
+        $('.slider').slider({full_width: true});
+      });
+    </script>
+    
+    
+    
+  </body>
+</html>

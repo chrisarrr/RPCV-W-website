@@ -1,0 +1,250 @@
+{% if request.current_user.is_member? == false and request.current_user.tags contains "member" %}
+<div id="flash">
+  <div class="notice error clearfix">
+    <div class="flash-message">Your membership expired on <b>{{ request.current_user.membership_expires_at | date: '%B %d, %Y '}}</b>.<a href="/join"> Click here to renew.</a>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="row-fluid">
+  <ul class="tabs">
+    <li class="tab span3"><a href="#A"><strong>Public Profile</strong></a></li>
+    <li class="tab span3"><a href="#B"><strong>Private Info</strong></a></li>
+    <li class="tab span3"><a  class="active"  href="#C"><strong>Membership</strong></a></li>
+  </ul>    
+</div>
+
+<div class="padbottommore"></div>
+
+<div id="A">
+  {% form_for signup %}
+  <div class="form padbottomore">
+    
+    <h4>Public profile</h4>
+    
+    <div class="form-errors">{% error_messages_for signup %}</div>
+    
+    <small>This section covers basic information that will be publicly visible on your <a href="{{ signup.profile_url }}"> profile page</a>, so that other members may connect with you.</small>
+    
+    <div class="padtopmore padbottommore">
+      <label class="checkbox" for="signup_is_profile_private">{% check_box "is_profile_private", class:"checkbox" %} {% if current_signup.is_profile_published? %}Your profile is active. Check this box to disable it.{% else %}Your profile is disabled. Uncheck this box to enable it{% endif %}</label>
+    </div>
+    
+    <div class="row-fluid">
+      <div class="span6"><label for="signup_signup_profile_image"><strong>Profile image</strong></label><div style="float:left; margin-right:10px">{{ request.current_signup.bigger_profile_image }}</div><small>You may upload a small, square image here to serve as your avatar. Otherwise, the website will use a profile image from your Facebook or Twitter account, if available. Any image you upload here will overwrite existing data.</small></div>
+      <div class="span6">{% file_field "signup_profile.image", class:"file" %}</div>
+    </div>
+    
+    
+    
+    <label>Username</label>
+    <div class="row-fluid">
+      <div class="span4">{% text_field "username", class:"text" %}</div>
+      <div class="span8"><small>Your member profile will be at <a href="{{ site.full_url }}{% if request.current_signup.has_username? %}{{ request.current_signup.username }}{% else %}username{% endif %}">{{ site.full_url }}{% if request.current_signup.has_username? %}{{ request.current_signup.username }}{% else %}username{% endif %}</a></small></div>
+    </div>
+    <div class="span12"><small>Your username creates a special web address where your public profile will live. If you don't enter a username, a number will be used instead.</small></div>
+    
+    <div class="row-fluid padtopmore">
+      <div class="span12"><label for="signup_website_input"><strong>Linkedin url</strong></label>
+        {% text_field "website", class:"text" %}
+      </div>
+      <small>Add your Linkedin <a href="https://community.linkedin.com/questions/20194/how-do-i-find-my-url-in-linkedin.html">public profile url</a> exactly as it appears in your address bar</small>
+    </div>
+    
+    <div class="row-fluid padtopmore">
+      <div class="span6"><label for="signup_first_name"><strong>Connect Facebook</strong></label>
+        {% if request.current_signup.has_facebook_authorization? %}
+        <div id="flash_container">
+          <div id="flash">
+            <div class="notice success clearfix">
+              <div class="flash-message" align="center">Facebook Connected</div>
+            </div>
+          </div>
+        </div>
+        {% else %} 
+        <div id="flash_container">
+          <div id="flash">
+            <div class="notice notice error">
+              <div class="flash-message" align="center">Facebook Not Connected</div>
+              <strong><a href="{{ request.facebook_connect_url }}"> Click here to connect</a></strong>
+            </div>
+          </div>
+        </div>
+        {% endif %} 
+      </div>
+      <div class="span6"><label for="signup_first_name"><strong>Connect Twitter</strong></label>
+        {% if request.current_signup.has_twitter_authorization? %}
+        <div id="flash_container">
+          <div id="flash">
+            <div class="notice success clearfix">
+              <div class="flash-message" align="center">Twitter Connected</div>
+            </div>
+          </div>
+        </div>
+        {% else %} 
+        <div id="flash_container">
+          <div id="flash">
+            <div class="notice error clearfix">
+              <div class="flash-message" align="center">Twitter Not Connected</div>
+              <strong><a href="{{ request.twitter_connect_url }}"> Click here to connect</a></strong>
+            </div>
+          </div>
+        </div>
+        {% endif %} 
+      </div>
+    </div>
+    
+    <div class="row-fluid">
+      <div class="span6"><label for="signup_first_name"><strong>First Name</strong></label>{% text_field "first_name", class:"text" %}</div>
+      <div class="span6"><label for="signup_last_name"><strong>Last Name</strong></label>{% text_field "last_name", class:"text" %}</div>
+    </div>
+    
+    <div class="row-fluid">
+      <small>If you were a Peace Corps volunteer or staff member, please tell us where and when. You may add up to four.</small>  
+    </div>
+    
+    <div id="Country1" class="row-fluid">
+      <div class="span6"><label for="signup_bio"><strong>First Peace Corps Country</strong></label> 
+        {% text_field "custom_values.country_of_service_1", class:"text" %}</div>
+      <div class="span6"><label for="signup_bio"><strong>Dates of Service</strong></label> 
+        {% text_field "custom_values.dates_of_service_1", class:"text" %}</div>
+    </div>
+    <div id="Country2" class="row-fluid">
+      <div class="span6"><label for="signup_bio"><strong>Second Peace Corps Country</strong></label> 
+        {% text_field "custom_values.country_of_service_2", class:"text" %}</div>
+      <div class="span6"><label for="signup_bio"><strong>Dates of Service</strong></label> 
+        {% text_field "custom_values.dates_of_service_2", class:"text" %}</div>
+    </div>
+    <div id="Country3" class="row-fluid">
+      <div class="span6"><label for="signup_bio"><strong>Third Peace Corps Country</strong></label> 
+        {% text_field "custom_values.country_of_service_3", class:"text" %}</div>
+      <div class="span6"><label for="signup_bio"><strong>Dates of Service</strong></label> 
+        {% text_field "custom_values.dates_of_service_3", class:"text" %}</div>
+    </div>
+    <div id="Country4" class="row-fluid">
+      <div class="span6"><label for="signup_bio"><strong>Fourth Peace Corps Country</strong></label> 
+        {% text_field "custom_values.country_of_service_4", class:"text" %}</div>
+      <div class="span6"><label for="signup_bio"><strong>Dates of Service</strong></label> 
+        {% text_field "custom_values.dates_of_service_4", class:"text" %}</div>
+    </div>
+    
+    <ul class="tabs padbottommore">
+      <li class="tab span3"><a class="active" href="#Country1"><strong>Country 1</strong></a></li>
+      <li class="tab span3"><a href="#Country2"><strong>Country 2</strong></a></li>
+      <li class="tab span3"><a href="#Country3"><strong>Country 3</strong></a></li>
+      <li class="tab span3"><a href="#Country4"><strong>Country 4</strong></a></li>
+    </ul>  
+    
+    
+    <div class="row-fluid padtopmore">
+
+        <label for="signup_profile_content_editable"><strong>Bio</strong></label>
+        <small>Write a bit about yourself. People can see this when they click on your profile link</small>
+        <div class="so_ie_does_not_put_this_in_the_footer padtop">{% text_area "profile_content_editable", class:"textarea-tinymce" %}</div>
+  
+    </div>
+    
+    {% if settings.is_donor? %}
+    <div class="row-fluid padtopmore">
+      <div class="span12"><label for="signup_donations_to_raise_amount">I can commit to fundraising:</label>{% text_field "donations_to_raise_amount", class:"text" %}</div>
+      <small>If you pledge an amount, share your profile link (<a href="{{ signup.profile_url }}">{{ site.full_url }}{{ request.current_signup.username }}</a>) with your friends. A donate button will appear in the right hand column of your profile. When people click it, you will receive credit as a fundraiser.</small>
+    </div>
+    {% endif %}
+    
+    <div class="row-fluid">
+      <div class="span12 hide"><label class="checkbox" for="signup_is_survey_question_private">{% check_box "is_survey_question_private", class:"checkbox" %} Don't publish my survey question answers on the website</label></div>
+    </div>
+    
+    <div class="row-fluid padtopmore">
+      <div class="span12"><label class="checkbox" for="signup_is_profile_searchable">{% check_box "is_profile_searchable", class:"checkbox" %} Allow search engines to find <a href="{{ signup.profile_url }}">my profile.</a></label></div>
+    </div>
+    
+    <div class="row-fluid">
+      <div class="span12"><label class="checkbox" for="signup_is_leaderboardable">{% check_box "is_leaderboardable", class:"checkbox" %} Include me in <a href="/leaderboard">leaderboards</a></label></div>
+    </div>
+    
+    <div class="row-fluid">
+      <div class="span12">
+        {% submit_tag "Save public settings", class:"submit-button" %}
+        <div class="form-submit"></div>
+      </div>
+    </div>  
+  </div>
+  {% endform_for %}
+</div>
+
+<div id="B">
+  {% form_for signup %}
+  <div class="form padbottomore">
+    <h4>Private settings</h4>
+    <div class="row-fluid padtopmore">
+      <div class="span6"><label for="signup_email">Email</label>{% email_field "email", class:"text" %}</div>
+      <div class="span6"><label for="signup_phone_number">Phone</label>{% phone_field "phone_number", class:"text" %}</div>
+    </div>
+    
+    <div class="row-fluid">
+      <div class="span6"><label for="signup_born_at_chronic">Date of Birth (MM/DD/YYYY)</label>{% text_field "born_at_chronic", class:"text" %}</div>
+      <div class="span6">
+        <label for="signup_born_at_chronic">Gender</label>
+        <select name="signup[sex]">
+          <option value="{{ signup.sex }}">{{ signup.sex }}</option>
+          <option value="F">F</option>
+          <option value="M">M</option>
+          <option value="O">O</option>
+        </select>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span6"><label for="signup_employer_input">Employer / Organization</label>{% text_field "employer", class:"text" %}</div>
+      <div class="span6"><label for="signup_occupation_input">Job Title</label>{% text_field "occupation", class:"text" %}</div>
+    </div>
+    
+    <div class="row-fluid">
+      <div class="span12"><label for="signup_submitted_address">Address (Street, City, State, Postal code)</label>{% text_field "submitted_address", class:"text" %}</div>
+    </div>    
+    
+    <div class="row-fluid">
+      <div class="span6 hide"><label class="checkbox" for="signup_email_opt_in">
+        <input name="signup[email_opt_in]" type="hidden" value="0"><input class="check_box user-success" checked="checked" id="signup_email_opt_in" name="signup[email_opt_in]" type="checkbox" value="1"> 
+        Check this box to return to our mailing list</label>
+      </div>
+    </div>
+    
+    <div class="row-fluid">
+      <div class="span12">
+        {% submit_tag "Save private settings", class:"submit-button" %}
+        <div class="form-submit"></div>
+      </div>
+    </div>
+  </div>
+  
+  {% endform_for %}
+  <div class="padtop">
+    {% if request.current_signup.has_password? and request.current_signup.has_email? %}
+    <a href="{{ request.new_password_reset_url }}">Reset your password</a>
+    {% endif %}      
+  </div>
+  <div class="padtopmore">
+    <small><a href="/disconnect">Unsubscribe</a></small>
+  </div>
+</div>
+
+<div id="C">
+  <div class="form">  
+    <div class="row-fluid">
+      
+      <h4>Account information</h4>
+      <p></p>         
+      <div class="row-fluid">Membership: {% if signup.is_member? %} <strong>Active</strong> {% else %} <b>Inactive. </b><a href="/join">Click here to renew.</a> {% endif %}</div>
+      
+      <div class="row-fluid">Member since: <b>{{ request.current_user.membership_started_at | date: '%B %d, %Y' }}</b></div>
+      
+      <div class="row-fluid">Membership type: <b>{{ request.current_user.membership_level_name }}</b></div>
+      
+      <div class="row-fluid">Renewal due: <b>{{ request.current_user.membership_expires_at | date: '%B %d, %Y' }}</b></div>
+      <p></p>
+    </div><!-- /row-fluid-->
+  </div><!-- /form -->
+  {% subpage "volunteer" with "volunteer_widget" %}
+</div><!-- /tab C -->

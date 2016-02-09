@@ -1,0 +1,34 @@
+.tabs {
+  position: relative;
+  margin-left: -40px;
+  max-width: 100%;
+  text-align: center;
+  li.tab {
+    color: $theme-color-1;
+    display: block;
+    float: left;
+    line-height: 18px;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    a {
+ 
+      color: $theme-color-1;
+      padding: 0 5px;
+      @include transition( color .28s ease);
+      &:hover {
+          @include transition( color .28s ease);
+          background-color: $theme-color-6;
+          color: $theme-color-3;
+        }
+    }
+    .active {
+      color: #fff;
+      background-color: $theme-color-1;
+      
+    }
+  }
+}
+
+ul.tabs li.tab { padding: 0; }
+

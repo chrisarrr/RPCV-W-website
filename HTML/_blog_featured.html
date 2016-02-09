@@ -1,0 +1,21 @@
+
+
+{% assign sortedPosts = page.blog.most_recent_blog_posts | sort: 'name'  %}
+{% for post in sortedPosts %}
+
+<div class="blog-featured">
+   <ul>
+   <li>
+        <a href="{{ post.url }}" class = "title" > 
+          
+          <strong>{{ post.headline }}</strong>
+            <hr>
+            {{ post.blog_post.content }}
+          <hr>
+          <small>{{ post.blog_post.content_flip | strip_html | truncatechars: 150 }}</small>
+          
+        </a> 
+      </li>
+    </ul>
+</div>
+{% endfor %}
